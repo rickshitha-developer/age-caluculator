@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      width: 100%;
+      max-width: 350px;
+      transition: all 0.3s ease;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="date"] {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.2s;
+    }
+
+    input[type="date"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+
+    button {
+      background: #4a90e2;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #357ab8;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎂 Age Calculator</h2>
+
+    <label for="todayDate">Today's Date</label>
+    <input type="date" id="todayDate" />
+
+    <label for="birthDate">Date of Birth</label>
+    <input type="date" id="birthDate" />
+
+    <button onclick="calculateAge()">Calculate Age</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById("todayDate").value= new Date().toISOString().split("T")
+[0]
+function calculateAge(){
+    let todayDate= new Date(document.getElementById("todayDate").value)
+    let birthDate= new Date(document.getElementById("birthDate").value)
+
+    if(!birthDate || birthDate > todayDate){
+        document.getElementById("result").innerText="Invalid Date of Birth!"
+        return
+    } 
+    
+    let years= todayDate.getFullYear() - birthDate.getFullYear()
+    let months=todayDate.getMonth() - birthDate.getMonth()
+    let days=todayDate.getDate() - birthDate.getDate()
+
+    if(days<0){
+        months--
+        days+= new Date(todayDate.getFullYear(),todayDate.getMonth(),0).
+        getDate()
+    }
+
+    if(months<0){
+        years--
+        months += 12
+    }
+    document.getElementById("result").innerHTML="Year: "+years+" ,Month: "+months+" ,Days: "+days;
+    
+}
+  </script>
+</body>
+</html>
